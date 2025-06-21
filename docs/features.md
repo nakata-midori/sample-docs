@@ -5,7 +5,7 @@ title: 主要機能
 
 # 主要機能
 
-SmartAttendanceは、現場のニーズに応える多彩かつ個性的な勤怠管理機能を提供します。
+KintaiFlowは、現場のニーズに応える多彩かつ個性的な勤怠管理機能を提供します。
 
 - [勤怠打刻の詳細へ](feature-attendance)
 - [申請管理の詳細へ](feature-application)

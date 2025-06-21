@@ -1,11 +1,11 @@
 ---
 title: アカウント登録
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # アカウント登録
 
-SmartAttendanceの利用を開始するには、まずアカウント登録が必要です。
+KintaiFlowの利用を開始するには、まずアカウント登録が必要です。
 
 ## 登録手順
 1. ログイン画面の「新規登録」ボタンをクリック

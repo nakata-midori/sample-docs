@@ -10,7 +10,7 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          Smart Attendance
+          KintaiFlow
         </Heading>
         <p className="hero__subtitle">
           勤怠管理をもっとスマートに。現場の業務効率化をサポートするクラウド型勤怠管理システムです。
@@ -27,13 +27,13 @@ function HomepageHeader() {
 
 export default function Home(): ReactNode {
   return (
-    <Layout title="Smart Attendance" description="勤怠管理をもっとスマートに。現場の業務効率化をサポートするクラウド型勤怠管理システム">
+    <Layout title="KintaiFlow" description="勤怠管理をもっとスマートに。現場の業務効率化をサポートするクラウド型勤怠管理システム">
       <HomepageHeader />
       <main style={{maxWidth: 900, margin: '0 auto', padding: 24}}>
         <section style={{marginBottom: 40}}>
-          <Heading as="h2">Smart Attendanceとは</Heading>
+          <Heading as="h2">KintaiFlowとは</Heading>
           <p>
-            Smart Attendanceは、出勤・退勤・休憩の打刻や各種申請、管理者による勤怠集計・レポート出力など、
+            KintaiFlowは、出勤・退勤・休憩の打刻や各種申請、管理者による勤怠集計・レポート出力など、
             現場のニーズに応える多彩な機能を備えたクラウド型勤怠管理システムです。
           </p>
         </section>
@@ -50,7 +50,7 @@ export default function Home(): ReactNode {
         <section>
           <Heading as="h2">まずはドキュメントからご覧ください</Heading>
           <p>
-            <Link to="/docs/intro">Smart Attendanceの機能・使い方を見る &rarr;</Link>
+            <Link to="/docs/intro">KintaiFlowの機能・使い方を見る &rarr;</Link>
           </p>
         </section>
       </main>

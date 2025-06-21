@@ -1,6 +1,6 @@
-# Website
+# KintaiFlow
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+このWebサイトは [Docusaurus](https://docusaurus.io/) を使って構築されています。
 
 ## Installation
 
@@ -14,7 +14,7 @@ npm install
 npm run start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+このコマンドは、ローカル開発サーバーを起動し、ブラウザウィンドウを開きます。ほとんどの変更は、サーバーを再起動することなくライブで反映されます。
 
 ## Build
 
@@ -22,20 +22,20 @@ This command starts a local development server and opens up a browser window. Mo
 npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+このコマンドは、静的コンテンツを `build` ディレクトリに生成し、任意の静的コンテンツホスティングサービスを使用して提供できます。
 
 ## Deployment
 
-Using SSH:
+SSHを使用する場合：
 
 ```bash
 USE_SSH=true npm run deploy
 ```
 
-Not using SSH:
+SSHを使用しない場合：
 
 ```bash
 GIT_USER=<Your GitHub username> npm run deploy
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+GitHub Pagesをホスティングに使用している場合、このコマンドはウェブサイトをビルドし、`gh-pages` ブランチにプッシュする便利な方法です。

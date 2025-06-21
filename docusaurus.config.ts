@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Smart Attendance',
+  title: 'KintaiFlow',
   tagline: '勤怠管理をもっとスマートに',
   favicon: 'img/favicon.ico',
 
@@ -73,7 +73,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Smart Attendance',
+      title: 'KintaiFlow',
       items: [
         {
           type: 'docSidebar',
@@ -130,7 +130,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Smart Attendance. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} KintaiFlow. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

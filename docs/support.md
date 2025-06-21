@@ -5,12 +5,12 @@ sidebar_position: 99
 
 # サポート
 
-Smart Attendanceのご利用に関するご質問やご相談は、以下の方法でサポートを受けられます。
+KintaiFlowのご利用に関するご質問やご相談は、以下の方法でサポートを受けられます。
 
 ## お問い合わせ方法
 
 - サポート専用フォーム（準備中）
-- メール: support@smart-attendance.example.com
+- メール: support@kintaiflow.example.com
 - よくあるご質問は[FAQ](faq)ページもご参照ください
 
 ## サポート対応時間

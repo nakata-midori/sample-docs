@@ -1,11 +1,11 @@
 ---
+title: KintaiFlowとは
 sidebar_position: 1
-title: SmartAttendanceとは
 ---
 
-# SmartAttendance ドキュメントサイト
+# KintaiFlow ドキュメントサイト
 
-このサイトは、勤怠管理システム「SmartAttendance」の公式ドキュメントサンプルです。
+このサイトは、勤怠管理システム「KintaiFlow」の公式ドキュメントサンプルです。
 
 ## サイト構成例
 - システム概要
