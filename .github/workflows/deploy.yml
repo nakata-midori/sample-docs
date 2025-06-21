@@ -30,7 +30,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         env:
-          GIT_USER: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm run deploy
