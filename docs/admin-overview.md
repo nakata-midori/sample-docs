@@ -7,10 +7,10 @@ sidebar_position: 30
 
 管理者は従業員の勤怠・申請・アカウント・レポートなど多彩な管理機能を利用できます。
 
-- [アカウント管理の詳細へ](admin-account)
-- [権限管理の詳細へ](admin-roles)
-- [勤務場所管理の詳細へ](admin-worklocation)
-- [AI分析・アラート管理の詳細へ](admin-ai)
+- [アカウント管理の詳細へ](/docs/admin-account)
+- [権限管理の詳細へ](/docs/admin-roles)
+- [勤務場所管理の詳細へ](/docs/admin-worklocation)
+- [AI分析・アラート管理の詳細へ](/docs/admin-ai)
 
 ## 主な管理者機能
 - 従業員アカウントの追加・編集・削除

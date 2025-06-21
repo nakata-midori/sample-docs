@@ -7,14 +7,14 @@ title: 主要機能
 
 KintaiFlowは、現場のニーズに応える多彩かつ個性的な勤怠管理機能を提供します。
 
-- [勤怠打刻の詳細へ](feature-attendance)
-- [申請管理の詳細へ](feature-application)
-- [管理者機能（概要）へ](admin-overview)
-- [レポート出力の詳細へ](feature-report)
-- [スマートフォン対応の詳細へ](feature-mobile)
-- [AIによる勤怠分析](feature-ai)
-- [チャットボットサポート](feature-chatbot)
-- [健康管理連携](feature-health)
+- [勤怠打刻の詳細へ](/docs/feature-attendance)
+- [申請管理の詳細へ](/docs/feature-application)
+- [管理者機能（概要）へ](/docs/admin-overview)
+- [レポート出力の詳細へ](/docs/feature-report)
+- [スマートフォン対応の詳細へ](/docs/feature-mobile)
+- [AIによる勤怠分析](/docs/feature-ai)
+- [チャットボットサポート](/docs/feature-chatbot)
+- [健康管理連携](/docs/feature-health)
 
 ## 1. 勤怠打刻（出勤・退勤・休憩）
 従業員はWebやスマートフォンから、出勤・退勤・休憩の打刻が簡単に行えます。
