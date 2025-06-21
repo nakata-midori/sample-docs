@@ -1,5 +1,8 @@
 name: Deploy to GitHub Pages
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -19,6 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Setup git identity for deploy
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Deploy to GitHub Pages
         env:
