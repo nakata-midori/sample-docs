@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
+const { execSync } = require('child_process');
 
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 const STATIC_DIR = path.join(process.cwd(), 'static');
@@ -52,14 +53,14 @@ function extractTitle(content, fallback) {
   return fallback;
 }
 
-function isPageContentEqual(a, b) {
-  // 比較対象: title, summary, keywords, category
-  return (
-    a.title === b.title &&
-    a.summary === b.summary &&
-    JSON.stringify(a.keywords || []) === JSON.stringify(b.keywords || []) &&
-    (a.category || '') === (b.category || '')
-  );
+function getChangedDocsFiles() {
+  try {
+    // 直近のコミットで変更されたdocs配下のファイル一覧を取得
+    const out = execSync('git diff --name-only HEAD~1 HEAD docs/').toString();
+    return out.split('\n').filter(f => f.endsWith('.md') || f.endsWith('.mdx')).map(f => path.resolve(f));
+  } catch (e) {
+    return [];
+  }
 }
 
 function main() {
@@ -75,6 +76,7 @@ function main() {
     }
   }
 
+  const changedFiles = getChangedDocsFiles();
   const files = getAllMarkdownFiles(DOCS_DIR);
   const pages = files.map((file) => {
     const raw = fs.readFileSync(file, 'utf-8');
@@ -88,7 +90,7 @@ function main() {
     let lastModified;
     if (
       prev &&
-      isPageContentEqual({ title, summary, keywords, category }, prev)
+      !changedFiles.includes(path.resolve(file))
     ) {
       lastModified = prev.lastModified;
     } else {
