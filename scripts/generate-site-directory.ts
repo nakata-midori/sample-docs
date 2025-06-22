@@ -55,8 +55,8 @@ function extractTitle(content, fallback) {
 
 function getChangedDocsFiles() {
   try {
-    // 直近のコミットで変更されたdocs配下のファイル一覧を取得
-    const out = execSync('git diff --name-only HEAD~1 HEAD docs/').toString();
+    // mainとの差分に含まれるdocs配下のファイル一覧を取得
+    const out = execSync('git fetch origin main && git diff --name-only origin/main...HEAD docs/').toString();
     return out.split('\n').filter(f => f.endsWith('.md') || f.endsWith('.mdx')).map(f => path.resolve(f));
   } catch (e) {
     return [];
