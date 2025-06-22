@@ -1,4 +1,4 @@
-name: Create site directory and PR
+name: Generate site-directory.yml and push
 
 # 注意: このワークフローを動作させるには、リポジトリ設定で
 # Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests" 
@@ -35,69 +35,7 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add static/site-directory.json
-          git commit -m 'chore: update site directory [skip ci]' || echo "No changes"
+          git commit -m 'chore: update site directory' || echo "No changes"
           git push
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get branch info
-        id: branch
-        run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          FEATURE_NAME=${BRANCH_NAME#feature/}
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          echo "feature_name=$FEATURE_NAME" >> $GITHUB_OUTPUT
-
-      - name: Get commit info
-        id: commit
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
-          COMMIT_SHA=$(git rev-parse --short HEAD)
-          echo "message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
-          echo "sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
-
-      - name: Check if PR exists
-        id: check-pr
-        run: |
-          PR_NUMBER=$(gh pr list --head ${{ steps.branch.outputs.branch_name }} --base main --json number --jq '.[0].number // empty')
-          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create Pull Request
-        if: steps.check-pr.outputs.pr_number == ''
-        run: |
-          gh pr create \
-            --title "feat: ${{ steps.branch.outputs.feature_name }} 機能開発" \
-            --body "$(cat <<'EOF'
-          ## 🚀 機能開発PR
-
-          **ブランチ**: \`${{ steps.branch.outputs.branch_name }}\`  
-          **最新コミット**: ${{ steps.commit.outputs.sha }}
-
-          ### 📝 最新の変更
-          \`\`\`
-          ${{ steps.commit.outputs.message }}
-          \`\`\`
-
-          ### ✅ 開発チェックリスト
-          - [ ] 機能要件を満たしている
-          - [ ] テストが追加・更新されている
-          - [ ] docs/development.md のルールに準拠している
-          - [ ] セキュリティ要件を満たしている
-          - [ ] パフォーマンスに問題がない
-
-          ### 📚 関連ドキュメント
-          - [開発ガイドライン](./docs/development.md)
-          - [コントリビューションガイド](./CONTRIBUTING.md)
-
-          ---
-          🤖 このPRは自動生成されました
-
-          🤖 Generated with [Claude Code](https://claude.ai/code)
-          EOF
-          )" \
-            --base main \
-            --head ${{ steps.branch.outputs.branch_name }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
