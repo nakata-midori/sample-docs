@@ -88,9 +88,10 @@ async function fetchSummaryWithOpenAI(content) {
 }
 
 async function main() {
-  // コマンドライン引数からbase, headブランチ名を取得
+  // コマンドライン引数からbase, headブランチ名、全件更新フラグを取得
   const baseBranch = process.argv[2] || 'main';
   const headBranch = process.argv[3] || 'HEAD';
+  const updateAll = process.argv[4] === '--all';
 
   let prevPagesMap = {};
   if (fs.existsSync(SITE_JSON_PATH)) {
@@ -104,7 +105,7 @@ async function main() {
     }
   }
 
-  const changedFiles = getChangedDocsFiles(baseBranch, headBranch);
+  const changedFiles = updateAll ? getAllMarkdownFiles(DOCS_DIR) : getChangedDocsFiles(baseBranch, headBranch);
   const files = getAllMarkdownFiles(DOCS_DIR);
   const pages = [];
   for (const file of files) {
@@ -121,13 +122,11 @@ async function main() {
       prev &&
       !changedFiles.includes(path.resolve(file))
     ) {
-      // 変更なし: 既存情報を流用
       summary = prev.summary;
       keywords = prev.keywords || [];
       category = prev.category || '';
       lastModified = prev.lastModified;
     } else {
-      // 差分あり: OpenAIで生成
       const ai = await fetchSummaryWithOpenAI(raw);
       summary = ai.summary || summary;
       keywords = ai.keywords || [];

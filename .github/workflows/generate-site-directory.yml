@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate site directory
         run: |
-          ts-node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
+          ts-node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }} --all
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
