@@ -1,12 +1,12 @@
-name: Generate site-directory.yml and push
+name: Generate site-directory.json and push
 
 # 注意: このワークフローを動作させるには、リポジトリ設定で
 # Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests" 
 # を有効にする必要があります
 
 on:
-  push:
-    branches: ['main', 'feature/**']
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,7 +30,8 @@ jobs:
         run: npm ci
 
       - name: Generate site directory
-        run: node scripts/generate-site-directory.ts
+        run: |
+          node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
 
       - name: Commit site directory
         run: |

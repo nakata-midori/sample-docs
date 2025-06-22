@@ -53,10 +53,10 @@ function extractTitle(content, fallback) {
   return fallback;
 }
 
-function getChangedDocsFiles() {
+function getChangedDocsFiles(baseBranch, headBranch) {
   try {
-    // mainとの差分に含まれるdocs配下のファイル一覧を取得
-    const out = execSync('git fetch origin main && git diff --name-only origin/main...HEAD docs/').toString();
+    // base...head間の差分に含まれるdocs配下のファイル一覧を取得
+    const out = execSync(`git fetch origin ${baseBranch} && git fetch origin ${headBranch} && git diff --name-only origin/${baseBranch}...origin/${headBranch} docs/`).toString();
     return out.split('\n').filter(f => f.endsWith('.md') || f.endsWith('.mdx')).map(f => path.resolve(f));
   } catch (e) {
     return [];
@@ -64,6 +64,10 @@ function getChangedDocsFiles() {
 }
 
 function main() {
+  // コマンドライン引数からbase, headブランチ名を取得
+  const baseBranch = process.argv[2] || 'main';
+  const headBranch = process.argv[3] || 'HEAD';
+
   let prevPagesMap = {};
   if (fs.existsSync(SITE_JSON_PATH)) {
     try {
@@ -76,7 +80,7 @@ function main() {
     }
   }
 
-  const changedFiles = getChangedDocsFiles();
+  const changedFiles = getChangedDocsFiles(baseBranch, headBranch);
   const files = getAllMarkdownFiles(DOCS_DIR);
   const pages = files.map((file) => {
     const raw = fs.readFileSync(file, 'utf-8');
