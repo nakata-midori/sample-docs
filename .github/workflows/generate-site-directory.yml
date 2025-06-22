@@ -1,7 +1,7 @@
 name: Generate site-directory.json and push
 
 # 注意: このワークフローを動作させるには、リポジトリ設定で
-# Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests" 
+# Settings > Actions > General > Workflow permissions > "Read and write permissions"
 # を有効にする必要があります
 
 on:
