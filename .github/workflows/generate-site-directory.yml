@@ -1,0 +1,44 @@
+name: Generate site-directory.json and push
+
+# 注意: このワークフローを動作させるには、リポジトリ設定で
+# Settings > Actions > General > Workflow permissions > "Read and write permissions"
+# を有効にする必要があります
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-site-directory-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate site directory
+        run: |
+          node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
+
+      - name: Commit site directory
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add static/site-directory.json
+          git commit -m 'chore: update site directory' || echo "No changes"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
