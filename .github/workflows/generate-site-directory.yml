@@ -13,7 +13,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  auto-pr:
+  generate-site-directory-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
