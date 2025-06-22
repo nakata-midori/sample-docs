@@ -2,11 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { execSync } = require('child_process');
+const { OpenAI } = require('openai');
 
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 const STATIC_DIR = path.join(process.cwd(), 'static');
 const BASE_URL = 'https://nakata-midori.github.io/sample-docs';
 const SITE_JSON_PATH = path.join(STATIC_DIR, 'site-directory.json');
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 function getAllMarkdownFiles(dir) {
   let results = [];
@@ -63,10 +68,41 @@ function getChangedDocsFiles(baseBranch, headBranch) {
   }
 }
 
-function main() {
-  // コマンドライン引数からbase, headブランチ名を取得
+async function fetchSummaryWithOpenAI(content) {
+  try {
+    const systemPrompt = 'あなたは日本語のドキュメント要約AIです。与えられた内容から「要約」「キーワード（3～10個、日本語で）」「カテゴリ（1単語、日本語）」をJSON形式で出力してください。例: {"summary": "...", "keywords": ["...", "..."], "category": "..."}';
+    const userPrompt = `内容:\n${content}`;
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      max_tokens: 512,
+      temperature: 0.2,
+    });
+    const text = response.choices[0].message.content;
+    return JSON.parse(text);
+  } catch (e) {
+    console.error('OpenAI API error:', e);
+    return { summary: '', keywords: [], category: '' };
+  }
+}
+
+function streamToString(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on('error', (err) => reject(err));
+    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
+  });
+}
+
+async function main() {
+  // コマンドライン引数からbase, headブランチ名、全件更新フラグを取得
   const baseBranch = process.argv[2] || 'main';
   const headBranch = process.argv[3] || 'HEAD';
+  const updateAll = process.argv[4] === '--all';
 
   let prevPagesMap = {};
   if (fs.existsSync(SITE_JSON_PATH)) {
@@ -80,27 +116,35 @@ function main() {
     }
   }
 
-  const changedFiles = getChangedDocsFiles(baseBranch, headBranch);
+  const changedFiles = updateAll ? getAllMarkdownFiles(DOCS_DIR) : getChangedDocsFiles(baseBranch, headBranch);
   const files = getAllMarkdownFiles(DOCS_DIR);
-  const pages = files.map((file) => {
+  const pages = [];
+  for (const file of files) {
     const raw = fs.readFileSync(file, 'utf-8');
     const id = getPageId(file);
     const url = getPageUrl(file);
     const title = extractTitle(raw, id);
-    const summary = extractSummary(raw);
-    const keywords = [];
-    const category = '';
+    let summary = extractSummary(raw);
+    let keywords = [];
+    let category = '';
     const prev = prevPagesMap[id];
     let lastModified;
     if (
       prev &&
       !changedFiles.includes(path.resolve(file))
     ) {
+      summary = prev.summary;
+      keywords = prev.keywords || [];
+      category = prev.category || '';
       lastModified = prev.lastModified;
     } else {
+      const ai = await fetchSummaryWithOpenAI(raw);
+      summary = ai.summary || summary;
+      keywords = ai.keywords || [];
+      category = ai.category || '';
       lastModified = getLastModified(file);
     }
-    return {
+    pages.push({
       id,
       title,
       url,
@@ -108,8 +152,8 @@ function main() {
       keywords,
       category,
       lastModified,
-    };
-  });
+    });
+  }
   const siteDirectory = {
     title: 'Sample Documentation Site',
     description: 'サンプルドキュメンテーションサイト',
