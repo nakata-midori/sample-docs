@@ -34,7 +34,12 @@ jobs:
 
       - name: Generate site directory
         run: |
-          ts-node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
+          ts-node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }} --all
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
 
       - name: Commit site directory
         run: |
