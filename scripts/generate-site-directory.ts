@@ -87,6 +87,7 @@ async function fetchSummaryWithBedrock(content) {
       contentType: 'application/json',
       accept: 'application/json',
       body,
+      inferenceProfileArn: 'arn:aws:bedrock:us-west-2:899098335317:inference-profile/us.anthropic.claude-3-5-sonnet-20241022-v2:0',
     };
     const command = new InvokeModelCommand(input);
     const response = await bedrockClient.send(command);
