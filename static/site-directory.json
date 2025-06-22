@@ -7,136 +7,244 @@
       "id": "account",
       "title": "アカウント登録",
       "url": "https://nakata-midori.github.io/sample-docs/docs/account",
-      "summary": "KintaiFlowの利用を開始するには、まずアカウント登録が必要です。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T04:23:44.132Z"
+      "summary": "KintaiFlowの利用を開始するには、アカウント登録が必要です。登録手順は、ログイン画面の「新規登録」ボタンをクリックし、必要事項を入力、登録用メールのURLをクリックして認証、登録完了後にログインが可能になります。注意事項として、パスワードは8文字以上で英数字混在、有効なメールアドレスを入力することが必要です。",
+      "keywords": [
+        "アカウント登録",
+        "KintaiFlow",
+        "登録手順",
+        "注意事項",
+        "パスワード",
+        "メールアドレス",
+        "プロフィール情報",
+        "有効期限"
+      ],
+      "category": "技術",
+      "lastModified": "2025-06-22T07:10:44.781Z"
     },
     {
       "id": "admin-account",
       "title": "アカウント管理",
       "url": "https://nakata-midori.github.io/sample-docs/docs/admin-account",
-      "summary": "従業員アカウントの追加・編集・削除、初期パスワード設定、アカウントロック解除などが可能です。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T04:23:44.132Z"
+      "summary": "アカウント管理では、従業員アカウントの追加・編集・削除、初期パスワード設定、アカウントロック解除などが可能。主な機能には新規アカウントの一括登録、アカウントロック・解除、パスワードリセット、退職者アカウントの自動アーカイブがある。セキュリティと利便性を両立した管理が可能。",
+      "keywords": [
+        "アカウント管理",
+        "従業員",
+        "セキュリティ",
+        "利便性",
+        "一括登録",
+        "アカウントロック",
+        "パスワードリセット",
+        "退職者",
+        "アーカイブ"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.781Z"
     },
     {
       "id": "admin-ai",
       "title": "AI分析・アラート管理",
       "url": "https://nakata-midori.github.io/sample-docs/docs/admin-ai",
-      "summary": "AIによる異常検知や自動アラート通知の設定・管理が可能です。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "AIによる異常検知や自動アラート通知の設定・管理が可能。主な機能は勤怠データのAI自動分析、異常検知時の自動アラート通知、アラート履歴の確認・管理。AI活用で管理業務を効率化。",
+      "keywords": [
+        "AI分析",
+        "アラート管理",
+        "異常検知",
+        "自動通知",
+        "勤怠データ"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.781Z"
     },
     {
       "id": "admin-overview",
       "title": "管理者機能",
       "url": "https://nakata-midori.github.io/sample-docs/docs/admin-overview",
-      "summary": "管理者は従業員の勤怠・申請・アカウント・レポートなど多彩な管理機能を利用できます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "管理者は従業員の勤怠・申請・アカウント・レポートなど多彩な管理機能を利用できます。主な管理者機能には従業員アカウントの追加・編集・削除、権限グループの設定、勤務場所の追加・編集・削除、AIによる異常検知・アラート管理、勤怠データの一括出力、システム設定・通知管理が含まれます。",
+      "keywords": [
+        "管理者機能",
+        "従業員",
+        "勤怠",
+        "アカウント",
+        "権限",
+        "勤務場所",
+        "AI",
+        "異常検知",
+        "アラート"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.781Z"
     },
     {
       "id": "admin-roles",
       "title": "権限管理",
       "url": "https://nakata-midori.github.io/sample-docs/docs/admin-roles",
-      "summary": "管理者は複数の権限グループを作成し、各機能へのアクセス制御が可能です。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "管理者は複数の権限グループを作成し、各機能へのアクセス制御が可能。権限管理では柔軟な運用が実現。",
+      "keywords": [
+        "権限管理",
+        "権限グループ",
+        "アクセス制御",
+        "機能",
+        "ダッシュボード表示"
+      ],
+      "category": "技術",
+      "lastModified": "2025-06-22T07:10:44.781Z"
     },
     {
       "id": "admin-worklocation",
       "title": "勤務場所管理",
       "url": "https://nakata-midori.github.io/sample-docs/docs/admin-worklocation",
-      "summary": "管理者は勤務場所（オフィス・自宅・現場など）を自由に追加・編集・削除できます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "勤務場所管理システムでは、管理者が勤務場所（オフィス・自宅・現場など）を自由に追加・編集・削除でき、多拠点やテレワークにも柔軟に対応しています。主な機能には、勤務場所の新規登録・編集・削除、利用状況集計、勤務場所別のレポート出力があります。",
+      "keywords": [
+        "勤務場所管理",
+        "オフィス",
+        "自宅",
+        "現場",
+        "多拠点",
+        "テレワーク"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "faq",
       "title": "よくある質問（FAQ）",
       "url": "https://nakata-midori.github.io/sample-docs/docs/faq",
-      "summary": "A. はい、PC・スマートフォン両方に対応しています。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "よくある質問（FAQ）では、スマートフォンでも利用可能であり、データのエクスポートもCSVやPDF形式で行えます。サポートはサポートページからお問い合わせ可能であり、パスワードを忘れた場合は再設定が可能です。",
+      "keywords": [
+        "よくある質問",
+        "スマートフォン",
+        "データエクスポート",
+        "サポート",
+        "パスワード再設定"
+      ],
+      "category": "FAQ",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-ai",
       "title": "AIによる勤怠分析",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-ai",
-      "summary": "AIが従業員の勤怠データを自動分析し、異常検知や傾向分析を行います。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "AIによる勤怠分析は従業員の勤怠データを自動分析し、異常検知や傾向分析を行う。主な特徴は打刻ミスや不正の自動検出、残業傾向や有給取得状況の可視化、AIによるシフト最適化提案。使い方は管理者ダッシュボードの「AI分析」メニューを選択し、分析レポートやアラートを確認する。",
+      "keywords": [
+        "AI",
+        "勤怠分析",
+        "異常検知",
+        "傾向分析",
+        "シフト最適化"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-application",
       "title": "申請管理",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-application",
-      "summary": "有給休暇・残業・遅刻・早退などの各種申請をWeb上で簡単に行えます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "申請管理システムは有給休暇や残業などの申請をWeb上で行えるシステムで、申請フォームの自動入力補助や承認フローのカスタマイズが可能です。また、申請・承認状況の通知機能や申請履歴の検索・ダウンロードも可能です。管理者向け機能としては、申請内容の一括承認/却下や申請履歴のエクスポートが提供されています。",
+      "keywords": [
+        "申請管理",
+        "有給休暇",
+        "残業",
+        "承認フロー",
+        "通知機能",
+        "申請履歴",
+        "管理者向け機能"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-attendance",
       "title": "勤怠打刻",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-attendance",
-      "summary": "KintaiFlowの勤怠打刻機能は、従業員の出勤・退勤・休憩を正確かつ簡単に記録できます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "KintaiFlowの勤怠打刻機能は、従業員の出勤・退勤・休憩を正確かつ簡単に記録できる。ワンクリックで打刻可能であり、GPSやIPアドレスによる不正防止機能も備えている。打刻忘れアラート機能や勤務場所の指定も可能。管理者向け機能として、打刻修正申請の承認/却下や打刻データの一括ダウンロードなどがある。",
+      "keywords": [
+        "勤怠打刻",
+        "KintaiFlow",
+        "出勤",
+        "退勤",
+        "休憩",
+        "GPS",
+        "管理者向け機能"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-chatbot",
       "title": "チャットボットサポート",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-chatbot",
-      "summary": "チャットボットが勤怠や申請に関する質問に24時間自動対応します。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "チャットボットサポートは勤怠や申請に関する質問に24時間自動対応するサービスであり、主な特徴は勤怠打刻や申請の操作案内、よくある質問への即時回答、管理者・従業員どちらも利用可能である。使い方は画面右下のチャットボットアイコンをクリックし、質問や操作内容を入力すると、チャットボットが自動で回答する。",
+      "keywords": [
+        "チャットボットサポート",
+        "勤怠",
+        "申請",
+        "自動対応",
+        "アップデート"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-dashboard",
       "title": "管理者ダッシュボード",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-dashboard",
-      "summary": "管理者は全従業員の勤怠状況や申請状況をリアルタイムで把握できます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.575Z"
+      "summary": "管理者ダッシュボードは全従業員の勤怠状況や申請状況をリアルタイムで把握できるシステムであり、主な特徴は勤怠集計・グラフ表示、従業員ごとの詳細検索、アカウント管理・権限設定、レポート出力などが挙げられる。具体的な使い方は管理者アカウントでログインし、ダッシュボードから各種メニューを選択して必要に応じてレポート出力や設定変更を行うこと。ダッシュボードの画面例には勤怠状況グラフ、申請状況一覧、アカウント管理画面などがある。",
+      "keywords": [
+        "管理者ダッシュボード",
+        "勤怠状況",
+        "申請状況",
+        "アカウント管理",
+        "レポート出力"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-health",
       "title": "健康管理連携",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-health",
-      "summary": "従業員の健康状態やストレスチェックと勤怠データを連携し、健康経営をサポートします。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "summary": "従業員の健康状態やストレスチェックと勤怠データを連携し、健康経営をサポートする健康管理連携の機能。健康診断結果の記録・管理やストレスチェックの自動リマインド、健康状態と勤怠の相関分析が可能。",
+      "keywords": [
+        "健康管理連携",
+        "健康経営",
+        "健康診断",
+        "ストレスチェック",
+        "勤怠データ"
+      ],
+      "category": "健康管理",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-mobile",
       "title": "スマートフォン対応",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-mobile",
-      "summary": "スマートフォンやタブレットからも快適に操作できるレスポンシブデザインを採用しています。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "summary": "このドキュメントはスマートフォン対応について説明しており、レスポンシブデザインを採用している。主な特徴として、モバイル専用UIやプッシュ通知対応（オプション）、タッチ操作に最適化が挙げられている。具体的な使い方として、スマートフォンでサイトにアクセスし、PCと同様の機能を利用可能。画面イメージとして、モバイル用ダッシュボードや打刻・申請画面が紹介されている。",
+      "keywords": [
+        "スマートフォン対応",
+        "レスポンシブデザイン",
+        "モバイル専用UI",
+        "プッシュ通知",
+        "タッチ操作",
+        "画面イメージ"
+      ],
+      "category": "技術",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "feature-report",
       "title": "レポート出力",
       "url": "https://nakata-midori.github.io/sample-docs/docs/feature-report",
-      "summary": "勤怠データや申請履歴をCSVやPDF形式で出力できます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "summary": "勤怠データや申請履歴をCSVやPDF形式で出力できる。期間・従業員・部署ごとに絞り込み可能で、フォーマットのカスタマイズやワンクリックでの出力が可能。管理者向け機能として、レポートテンプレートの管理や出力履歴の確認ができる。",
+      "keywords": [
+        "レポート出力",
+        "CSV",
+        "PDF",
+        "出力",
+        "管理者",
+        "テンプレート"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "features",
@@ -145,25 +253,38 @@
       "summary": "KintaiFlowは、現場のニーズに応える多彩かつ個性的な勤怠管理機能を提供します。",
       "keywords": [],
       "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "intro",
       "title": "KintaiFlowとは",
       "url": "https://nakata-midori.github.io/sample-docs/docs/intro",
-      "summary": "このサイトは、勤怠管理システム「KintaiFlow」の公式ドキュメントサンプルです。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "summary": "KintaiFlowは勤怠管理システムの公式ドキュメントサイトであり、サイト構成例としてシステム概要、主な機能、画面イメージ、よくある質問、サポート・お問い合わせが挙げられている。",
+      "keywords": [
+        "KintaiFlow",
+        "勤怠管理システム",
+        "公式ドキュメント",
+        "サイト構成",
+        "機能",
+        "使い方"
+      ],
+      "category": "技術",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     },
     {
       "id": "support",
       "title": "サポート",
       "url": "https://nakata-midori.github.io/sample-docs/docs/support",
-      "summary": "KintaiFlowのご利用に関するご質問やご相談は、以下の方法でサポートを受けられます。",
-      "keywords": [],
-      "category": "",
-      "lastModified": "2025-06-22T03:25:30.576Z"
+      "summary": "KintaiFlowのサポートに関する情報が記載されており、お問い合わせ方法や対応時間、内容が紹介されています。サポートページは今後も内容を拡充予定です。",
+      "keywords": [
+        "KintaiFlow",
+        "サポート",
+        "お問い合わせ方法",
+        "対応時間",
+        "サポート内容"
+      ],
+      "category": "ビジネス",
+      "lastModified": "2025-06-22T07:10:44.782Z"
     }
   ]
 }
