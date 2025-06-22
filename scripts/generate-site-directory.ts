@@ -2,15 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { execSync } = require('child_process');
-const OpenAI = require('openai');
+const { BedrockRuntimeClient, InvokeModelCommand } = require('@aws-sdk/client-bedrock-runtime');
 
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 const STATIC_DIR = path.join(process.cwd(), 'static');
 const BASE_URL = 'https://nakata-midori.github.io/sample-docs';
 const SITE_JSON_PATH = path.join(STATIC_DIR, 'site-directory.json');
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const bedrockClient = new BedrockRuntimeClient({
+  region: process.env.AWS_REGION || 'us-west-2',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: process.env.AWS_SESSION_TOKEN,
+  },
 });
 
 function getAllMarkdownFiles(dir) {
@@ -68,23 +73,39 @@ function getChangedDocsFiles(baseBranch, headBranch) {
   }
 }
 
-async function fetchSummaryWithOpenAI(content) {
+async function fetchSummaryWithBedrock(content) {
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: 'あなたは日本語のドキュメント要約AIです。与えられた内容から「要約」「キーワード（3～10程度、日本語で）」「カテゴリ（1単語、日本語）」をJSON形式で出力してください。例: {"summary": "...", "keywords": ["...", "..."], "category": "..."}' },
-        { role: 'user', content: content }
-      ],
+    const prompt = `あなたは日本語のドキュメント要約AIです。与えられた内容から「要約」「キーワード（3～10個、日本語で）」「カテゴリ（1単語、日本語）」をJSON形式で出力してください。例: {"summary": "...", "keywords": ["...", "..."], "category": "..."}\n内容:\n${content}`;
+    const body = JSON.stringify({
+      prompt,
+      max_tokens_to_sample: 512,
       temperature: 0.2,
+      stop_sequences: ["\n\n"],
     });
-    const text = response.choices[0].message.content;
-    // JSONパースを試みる
-    return JSON.parse(text);
+    const input = {
+      modelId: 'anthropic.claude-3-sonnet-20240229-v1:0', // Claude 3 Sonnet例
+      contentType: 'application/json',
+      accept: 'application/json',
+      body,
+    };
+    const command = new InvokeModelCommand(input);
+    const response = await bedrockClient.send(command);
+    const responseBody = await streamToString(response.body);
+    const completion = JSON.parse(responseBody.toString()).completion;
+    return JSON.parse(completion);
   } catch (e) {
-    console.error('OpenAI API error:', e);
+    console.error('Bedrock API error:', e);
     return { summary: '', keywords: [], category: '' };
   }
+}
+
+function streamToString(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on('error', (err) => reject(err));
+    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
+  });
 }
 
 async function main() {
@@ -127,7 +148,7 @@ async function main() {
       category = prev.category || '';
       lastModified = prev.lastModified;
     } else {
-      const ai = await fetchSummaryWithOpenAI(raw);
+      const ai = await fetchSummaryWithBedrock(raw);
       summary = ai.summary || summary;
       keywords = ai.keywords || [];
       category = ai.category || '';
