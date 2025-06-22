@@ -2,16 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { execSync } = require('child_process');
-const { OpenAIApi, Configuration } = require('openai');
+const { OpenAI } = require('openai');
 
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 const STATIC_DIR = path.join(process.cwd(), 'static');
 const BASE_URL = 'https://nakata-midori.github.io/sample-docs';
 const SITE_JSON_PATH = path.join(STATIC_DIR, 'site-directory.json');
 
-const openai = new OpenAIApi(new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-}));
+});
 
 function getAllMarkdownFiles(dir) {
   let results = [];
@@ -72,7 +72,7 @@ async function fetchSummaryWithOpenAI(content) {
   try {
     const systemPrompt = 'あなたは日本語のドキュメント要約AIです。与えられた内容から「要約」「キーワード（3～10個、日本語で）」「カテゴリ（1単語、日本語）」をJSON形式で出力してください。例: {"summary": "...", "keywords": ["...", "..."], "category": "..."}';
     const userPrompt = `内容:\n${content}`;
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: systemPrompt },
@@ -81,7 +81,7 @@ async function fetchSummaryWithOpenAI(content) {
       max_tokens: 512,
       temperature: 0.2,
     });
-    const text = response.data.choices[0].message.content;
+    const text = response.choices[0].message.content;
     return JSON.parse(text);
   } catch (e) {
     console.error('OpenAI API error:', e);
