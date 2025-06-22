@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-bedrock": "^3.834.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.830.0",
     "@docusaurus/core": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
     "@mdx-js/react": "^3.0.0",
