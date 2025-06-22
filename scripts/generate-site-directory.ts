@@ -2,11 +2,21 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { execSync } = require('child_process');
+const { BedrockRuntimeClient, InvokeModelCommand } = require('@aws-sdk/client-bedrock-runtime');
 
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 const STATIC_DIR = path.join(process.cwd(), 'static');
 const BASE_URL = 'https://nakata-midori.github.io/sample-docs';
 const SITE_JSON_PATH = path.join(STATIC_DIR, 'site-directory.json');
+
+const bedrockClient = new BedrockRuntimeClient({
+  region: process.env.AWS_REGION || 'us-west-2',
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: process.env.AWS_SESSION_TOKEN,
+  },
+});
 
 function getAllMarkdownFiles(dir) {
   let results = [];
@@ -63,10 +73,46 @@ function getChangedDocsFiles(baseBranch, headBranch) {
   }
 }
 
-function main() {
-  // コマンドライン引数からbase, headブランチ名を取得
+async function fetchSummaryWithBedrock(content) {
+  try {
+    const prompt = `あなたは日本語のドキュメント要約AIです。与えられた内容から「要約」「キーワード（3～10個、日本語で）」「カテゴリ（1単語、日本語）」をJSON形式で出力してください。例: {"summary": "...", "keywords": ["...", "..."], "category": "..."}\n内容:\n${content}`;
+    const body = JSON.stringify({
+      prompt,
+      max_tokens_to_sample: 512,
+      temperature: 0.2,
+      stop_sequences: ["\n\n"],
+    });
+    const input = {
+      modelId: 'anthropic.claude-3-5-sonnet-20240620-v1:0',
+      contentType: 'application/json',
+      accept: 'application/json',
+      body,
+    };
+    const command = new InvokeModelCommand(input);
+    const response = await bedrockClient.send(command);
+    const responseBody = await streamToString(response.body);
+    const completion = JSON.parse(responseBody.toString()).completion;
+    return JSON.parse(completion);
+  } catch (e) {
+    console.error('Bedrock API error:', e);
+    return { summary: '', keywords: [], category: '' };
+  }
+}
+
+function streamToString(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on('error', (err) => reject(err));
+    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
+  });
+}
+
+async function main() {
+  // コマンドライン引数からbase, headブランチ名、全件更新フラグを取得
   const baseBranch = process.argv[2] || 'main';
   const headBranch = process.argv[3] || 'HEAD';
+  const updateAll = process.argv[4] === '--all';
 
   let prevPagesMap = {};
   if (fs.existsSync(SITE_JSON_PATH)) {
@@ -80,27 +126,35 @@ function main() {
     }
   }
 
-  const changedFiles = getChangedDocsFiles(baseBranch, headBranch);
+  const changedFiles = updateAll ? getAllMarkdownFiles(DOCS_DIR) : getChangedDocsFiles(baseBranch, headBranch);
   const files = getAllMarkdownFiles(DOCS_DIR);
-  const pages = files.map((file) => {
+  const pages = [];
+  for (const file of files) {
     const raw = fs.readFileSync(file, 'utf-8');
     const id = getPageId(file);
     const url = getPageUrl(file);
     const title = extractTitle(raw, id);
-    const summary = extractSummary(raw);
-    const keywords = [];
-    const category = '';
+    let summary = extractSummary(raw);
+    let keywords = [];
+    let category = '';
     const prev = prevPagesMap[id];
     let lastModified;
     if (
       prev &&
       !changedFiles.includes(path.resolve(file))
     ) {
+      summary = prev.summary;
+      keywords = prev.keywords || [];
+      category = prev.category || '';
       lastModified = prev.lastModified;
     } else {
+      const ai = await fetchSummaryWithBedrock(raw);
+      summary = ai.summary || summary;
+      keywords = ai.keywords || [];
+      category = ai.category || '';
       lastModified = getLastModified(file);
     }
-    return {
+    pages.push({
       id,
       title,
       url,
@@ -108,8 +162,8 @@ function main() {
       keywords,
       category,
       lastModified,
-    };
-  });
+    });
+  }
   const siteDirectory = {
     title: 'Sample Documentation Site',
     description: 'サンプルドキュメンテーションサイト',
