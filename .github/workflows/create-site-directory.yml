@@ -102,37 +102,37 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update existing PR
-        if: steps.check-pr.outputs.pr_number != ''
-        run: |
-          gh pr edit ${{ steps.check-pr.outputs.pr_number }} \
-            --body "$(cat <<'EOF'
-          ## 🚀 機能開発PR (更新済み)
-
-          **ブランチ**: \`${{ steps.branch.outputs.branch_name }}\`  
-          **最新コミット**: ${{ steps.commit.outputs.sha }}
-
-          ### 📝 最新の変更
-          \`\`\`
-          ${{ steps.commit.outputs.message }}
-          \`\`\`
-
-          ### ✅ 開発チェックリスト
-          - [ ] 機能要件を満たしている
-          - [ ] テストが追加・更新されている
-          - [ ] docs/development.md のルールに準拠している
-          - [ ] セキュリティ要件を満たしている
-          - [ ] パフォーマンスに問題がない
-
-          ### 📚 関連ドキュメント
-          - [開発ガイドライン](./docs/development.md)
-          - [コントリビューションガイド](./CONTRIBUTING.md)
-
-          ---
-          🤖 このPRは自動更新されました
-
-          🤖 Generated with [Claude Code](https://claude.ai/code)
-          EOF
-          )"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Update existing PR
+      #   if: steps.check-pr.outputs.pr_number != ''
+      #   run: |
+      #     gh pr edit ${{ steps.check-pr.outputs.pr_number }} \
+      #       --body "$(cat <<'EOF'
+      #     ## 🚀 機能開発PR (更新済み)
+      #
+      #     **ブランチ**: \`${{ steps.branch.outputs.branch_name }}\`  
+      #     **最新コミット**: ${{ steps.commit.outputs.sha }}
+      #
+      #     ### 📝 最新の変更
+      #     \`\`\`
+      #     ${{ steps.commit.outputs.message }}
+      #     \`\`\`
+      #
+      #     ### ✅ 開発チェックリスト
+      #     - [ ] 機能要件を満たしている
+      #     - [ ] テストが追加・更新されている
+      #     - [ ] docs/development.md のルールに準拠している
+      #     - [ ] セキュリティ要件を満たしている
+      #     - [ ] パフォーマンスに問題がない
+      #
+      #     ### 📚 関連ドキュメント
+      #     - [開発ガイドライン](./docs/development.md)
+      #     - [コントリビューションガイド](./CONTRIBUTING.md)
+      #
+      #     ---
+      #     🤖 このPRは自動更新されました
+      #
+      #     🤖 Generated with [Claude Code](https://claude.ai/code)
+      #     EOF
+      #     )"
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
