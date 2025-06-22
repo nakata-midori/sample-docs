@@ -6,7 +6,7 @@ name: Create site directory and PR
 
 on:
   push:
-    branches: ['main']
+    branches: ['main', 'feature/**']
 
 permissions:
   contents: read
