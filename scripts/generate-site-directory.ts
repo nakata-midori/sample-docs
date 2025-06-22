@@ -81,10 +81,17 @@ async function fetchSummaryWithOpenAI(content) {
       max_tokens: 512,
       temperature: 0.2,
     });
-    const text = response.choices[0].message.content;
+    let text = response.choices[0].message.content;
+    // コードブロック（```json ... ```）形式で返る場合の除去処理
+    if (text.startsWith('```')) {
+      text = text.replace(/^```[a-zA-Z]*\n?|```$/g, '').trim();
+    }
+    // バッククォートや不要な改行を除去
+    text = text.replace(/^```json|```$/g, '').trim();
+    // JSONパース
     return JSON.parse(text);
   } catch (e) {
-    console.error('OpenAI API error:', e);
+    console.error('OpenAI API error or JSON parse error:', e);
     return { summary: '', keywords: [], category: '' };
   }
 }
