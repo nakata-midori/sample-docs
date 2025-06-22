@@ -37,6 +37,8 @@ jobs:
           git add static/site-directory.json
           git commit -m 'chore: update site directory [skip ci]' || echo "No changes"
           git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get branch info
         id: branch
