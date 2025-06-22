@@ -83,7 +83,7 @@ async function fetchSummaryWithBedrock(content) {
       stop_sequences: ["\n\n"],
     });
     const input = {
-      modelId: 'anthropic.claude-3-sonnet-20240229-v1:0', // Claude 3 Sonnet例
+      modelId: 'anthropic.claude-4-sonnet-20250514-v1:0',
       contentType: 'application/json',
       accept: 'application/json',
       body,
