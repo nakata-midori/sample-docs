@@ -29,9 +29,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install ts-node
+        run: npm install -g ts-node
+
       - name: Generate site directory
         run: |
-          node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
+          ts-node scripts/generate-site-directory.ts ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
 
       - name: Commit site directory
         run: |

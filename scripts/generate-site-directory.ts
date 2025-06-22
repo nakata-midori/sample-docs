@@ -116,7 +116,7 @@ function main() {
     baseUrl: BASE_URL,
     pages,
   };
-  if (!fs.existsSync(STATIC_DIR)) fs.mkdirSync(STATIC_DIR);
+  fs.mkdirSync(STATIC_DIR, { recursive: true });
   fs.writeFileSync(SITE_JSON_PATH, JSON.stringify(siteDirectory, null, 2), 'utf-8');
   console.log('site-directory.json generated!');
 }
